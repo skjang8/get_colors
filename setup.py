@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="get_colors",
-    version="0.1.0",
+    version="0.2.0",
     author="skjang8",
     author_email="skjang8@gmail.com",
     description="A simple utility to generate colors from various colormaps",

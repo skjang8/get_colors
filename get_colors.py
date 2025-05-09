@@ -91,7 +91,52 @@ def XYZ_to_sRGB(XYZ):
 # Usage example
 if __name__ == "__main__":
     import numpy as np
-    colors = get_colors(5)
-    # Convert to 0-255 range for display
-    rgb_colors = [(int(r*255), int(g*255), int(b*255)) for r, g, b in colors]
-    print(rgb_colors) 
+    import matplotlib.pyplot as plt
+    
+    # Demonstrate color generation
+    colors = get_colors(10)
+    plt.figure(figsize=(2*len(colors), 2))
+    
+    for i, color in enumerate(colors):
+        plt.subplot(1, len(colors), i+1)
+        plt.imshow([[color]])
+        plt.axis('off')
+        plt.title(f'Color {i+1}')
+        
+    plt.tight_layout()
+    plt.show()
+
+    # Demonstrate color usage in scatter plot
+    n_classes = 5
+    n_points = 100
+
+    data = []
+    labels = []
+    for i in range(n_classes):
+        center = np.random.randn(2) * 3
+        points = center + np.random.randn(n_points, 2)
+        data.append(points)
+        labels.extend([i] * n_points)
+
+    data = np.vstack(data)
+    labels = np.array(labels)
+
+    # Get colors
+    colors = get_colors(n_classes, L=65, C=80)
+
+    # Create scatter plot
+    plt.figure(figsize=(10, 8))
+
+    for i in range(n_classes):
+        mask = labels == i
+        plt.scatter(data[mask, 0], data[mask, 1], 
+                c=[colors[i]], 
+                label=f'Class {i+1}',
+                alpha=0.6)
+
+    plt.xlabel('X')
+    plt.ylabel('Y')
+    plt.title('Random Clusters with Lab Color Space Colors')
+    plt.legend()
+    plt.grid(True, alpha=0.3)
+    plt.show()

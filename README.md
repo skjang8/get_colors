@@ -16,17 +16,53 @@ pip install git+https://github.com/skjang8/get_colors.git
 from get_colors import get_colors
 import numpy as np
 
-# 5개의 색상 생성
-colors = get_colors(5)
-print(colors)
+# Demonstrate color generation
+colors = get_colors(10)
+plt.figure(figsize=(2*len(colors), 2))
 
-# RGB 0-255 값으로 변환
-rgb_colors = [(int(r*255), int(g*255), int(b*255)) for r, g, b in colors]
-print(rgb_colors)
+for i, color in enumerate(colors):
+    plt.subplot(1, len(colors), i+1)
+    plt.imshow([[color]])
+    plt.axis('off')
+    plt.title(f'Color {i+1}')
+    
+plt.tight_layout()
+plt.show()
 
-# 밝기와 채도 조절
-light_colors = get_colors(3, L=80, C=40)  # 더 밝고 덜 채도높은 색상
-dark_colors = get_colors(3, L=50, C=70)   # 더 어둡고 채도높은 색상
+# Demonstrate color usage in scatter plot
+n_classes = 5
+n_points = 100
+
+data = []
+labels = []
+for i in range(n_classes):
+    center = np.random.randn(2) * 3
+    points = center + np.random.randn(n_points, 2)
+    data.append(points)
+    labels.extend([i] * n_points)
+
+data = np.vstack(data)
+labels = np.array(labels)
+
+# Get colors using color_picker
+colors = get_colors(n_classes, L=65, C=80)
+
+# Create scatter plot
+plt.figure(figsize=(10, 8))
+
+for i in range(n_classes):
+    mask = labels == i
+    plt.scatter(data[mask, 0], data[mask, 1], 
+            c=[colors[i]], 
+            label=f'Class {i+1}',
+            alpha=0.6)
+
+plt.xlabel('X')
+plt.ylabel('Y')
+plt.title('Random Clusters with Lab Color Space Colors')
+plt.legend()
+plt.grid(True, alpha=0.3)
+plt.show()
 ```
 
 ## 매개변수 설명
