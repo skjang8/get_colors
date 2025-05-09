@@ -29,6 +29,8 @@ for i, color in enumerate(colors):
 plt.tight_layout()
 plt.show()
 
+
+
 # Demonstrate color usage in scatter plot
 n_classes = 5
 n_points = 100
