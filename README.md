@@ -1,6 +1,6 @@
 # get_colors
 
-쉽게 사용할 수 있는 컬러맵 유틸리티 함수입니다. 데이터 시각화나 플롯 작성 시 필요한 색상 세트를 생성합니다.
+CIE Lab 색 공간을 기반으로 시각적으로 균일한 색상을 생성하는 함수입니다. 데이터 시각화나 플롯 작성 시 필요한 색상 세트를 생성합니다.
 
 ## 설치 방법
 
@@ -14,29 +14,28 @@ pip install git+https://github.com/skjang8/get_colors.git
 
 ```python
 from get_colors import get_colors
+import numpy as np
 
-# 5개의 무지개색 색상 생성
-colors = get_colors(5, colormap='rainbow')
+# 5개의 색상 생성
+colors = get_colors(5)
 print(colors)
-# 출력 예: [(255, 127, 0), (0, 255, 0), (0, 0, 255), (127, 0, 255), (255, 0, 127)]
 
-# 다른 컬러맵 사용
-viridis_colors = get_colors(3, colormap='viridis')
-print(viridis_colors)
+# RGB 0-255 값으로 변환
+rgb_colors = [(int(r*255), int(g*255), int(b*255)) for r, g, b in colors]
+print(rgb_colors)
 
-# 컬러맵의 특정 구간만 사용
-colors_subset = get_colors(4, colormap='plasma', start=0.2, end=0.8)
-print(colors_subset)
+# 밝기와 채도 조절
+light_colors = get_colors(3, L=80, C=40)  # 더 밝고 덜 채도높은 색상
+dark_colors = get_colors(3, L=50, C=70)   # 더 어둡고 채도높은 색상
 ```
 
-## 지원하는 컬러맵
+## 매개변수 설명
 
-- `rainbow`: 무지개 색상
-- `viridis`: 파란색-녹색-노란색 그라데이션
-- `plasma`: 보라색-빨간색-노란색 그라데이션
-- `inferno`: 검정색-빨간색-노란색 그라데이션
-- `magma`: 검정색-보라색-핑크색-노란색 그라데이션
-- `cividis`: 파란색-노란색 그라데이션(색맹에 친화적)
+- `n`: 생성할 색상 수
+- `L`: 밝기 값 (0-100 범위, 기본값: 70)
+- `C`: 채도 값 (0-128 권장, 기본값: 60)
+
+이 함수는 색상(Hue)을 균등하게 분포시키고, 모든 색상의 밝기(Lightness)와 채도(Chroma)를 일정하게 유지하여 시각적으로 일관된 색상 팔레트를 생성합니다.
 
 ## 라이센스
 

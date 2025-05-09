@@ -4,7 +4,7 @@ setup(
     name="get_colors",
     version="0.1.0",
     author="skjang8",
-    author_email="your.email@example.com",
+    author_email="skjang8@gmail.com",
     description="A simple utility to generate colors from various colormaps",
     long_description=open("README.md").read() if hasattr(__builtins__, "open") else "",
     long_description_content_type="text/markdown",
