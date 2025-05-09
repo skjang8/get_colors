@@ -9,7 +9,7 @@ setup(
     long_description=open("README.md").read() if hasattr(__builtins__, "open") else "",
     long_description_content_type="text/markdown",
     url="https://github.com/skjang8/get_colors",
-    py_modules=["get_colors"]
+    py_modules=["get_colors"],
     classifiers=[
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: MIT License",
