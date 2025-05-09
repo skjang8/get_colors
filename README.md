@@ -14,6 +14,7 @@ pip install git+https://github.com/skjang8/get_colors.git
 
 ```python
 from get_colors import get_colors
+import matplotlib.pyplot as plt
 import numpy as np
 
 # Demonstrate color generation
